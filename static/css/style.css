@@ -1,0 +1,463 @@
+:root {
+  --lightAsh: rgb(192, 192, 186);
+  --deepAsh: rgb(172, 172, 179);
+  --lightBlue: #3586ff;
+  --deepBlue: rgb(0,0,255);
+}
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+/*        ======            styling the scrollbar     =================== */
+body::-webkit-scrollbar {
+  width: 1.1em;  
+}
+body::-webkit-scrollbar-track {
+  background-color: rgba(53, 134, 255, .6);
+  border-radius: 100vw;
+  margin-block: .7em;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: blue;
+  border-radius: 100vw;
+}
+body::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(1, 1, 53);
+}
+
+/*        ======            end of styling the scrollbar     =================== */
+
+/* bootstrap added styles customize */
+.m-6 {margin: 5em;} .p6 {margin: 5em;}
+.mt-6 { margin-top: 5em;}.mr-6 { margin-right: 5em;}.mb-6 {margin-bottom: 5em;}.ml-6 {margin-left: 5em;}
+.pt-6 { padding-top: 5em;}.pr-6 { padding-right: 5em;}.pb-6 {padding-bottom: 5em;}.pl-6 {padding-left: 5em;}
+.p-0 {padding: 0!important;}
+.m-0 {margin: 0!important;}
+.flex-parent-center { display: flex; justify-content: center; align-items: center; flex-wrap: wrap;}
+.mh-100 {min-height: 100vh;}
+
+/* classes */
+.text-primary {
+    color: var(--lightBlue)!important;
+}
+.bg-primary {
+    background-color: var(--lightBlue)!important;
+}
+.btn-primary {
+    background-color: var(--lightBlue)!important;
+}
+.search-btn {
+    height: 2.37em;
+    border: 1px solid var(--deepBlue)!important;
+    color: var(--deepBlue)!important;
+}
+.search-btn:hover {
+    color: white!important;
+}
+.rotate {
+  transition: transform 0.3s;
+  -webkit-transition: transform 0.3s;
+  -o-transition: transform 0.3s;
+  -moz-transition: transform 0.3s;
+  transform: rotate(90deg);
+}
+.registration {
+  border: 1px solid var(--lightAsh);
+  display: inline-block;
+  width: 6.4em;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--lightBlue);
+  font-weight: bold;
+  color: white !important;
+  transition: all 0.4s ease;
+  --webkit-transition: all 0.4s ease;
+  --o-transition: all 0.4s ease;
+  --moz-transition: all 0.4s ease;
+  overflow: hidden;
+}
+.registration:hover,
+.registration:active {
+  background-color: var(--deepBlue);
+  color: var(--deepAsh) !important;
+}
+.mh-80 {
+  min-height: 80vh;
+}
+.mh-100 {
+  min-height: 100vh;
+}
+/* header */
+.carousel-header {
+  position: relative;
+}
+/* hero section */
+.hero-img {
+  height: 22em;
+  width: 22em;
+  border-radius: 5px;
+  transition: transform .4s ease;
+  -webkit-transition: transform .4s ease;
+  -o-transition: transform .4s ease;
+  -moz-transition: transform .4s ease;
+}
+.hero-img:hover,
+.hero-img:focus {
+  transform: scale(1.1);
+}
+/* =====================liquid button animation */
+.liquid-btn {
+  position: relative;
+  padding: .5em .9em;
+  display: block;
+  margin: 0 auto;
+  text-transform: uppercase;
+  width: 10em;
+  overflow: hidden;
+  border-radius: 5px;
+}
+.liquid-btn:hover {
+  text-decoration: none;
+}
+.liquid-btn:hover .liquidised {
+  top: -120px;
+  background: var(--deepBlue);
+}
+.liquid-btn span {
+  position: relative;
+  z-index: 1;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.liquidised {
+  position: absolute;
+  left: 0;
+  top: -80px;
+  width: 200px;
+  height: 200px;
+  background: var(--lightBlue);
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+  -ms-transition: 0.5s;
+  -o-transition: 0.5s;
+  -moz-transition: 0.5s;
+}
+.liquidised::before,
+.liquidised::after {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -75%);
+}
+.liquidised::before {
+  border-radius: 45%;
+  background: rgb(132, 86, 238);
+  animation: liquidised 5s linear infinite;
+  -webkit-animation: liquidised 5s linear infinite;
+  -moz-animation: liquidised 5s linear infinite;
+  -ms-animation: liquidised 5s linear infinite;
+  -o-animation: liquidised 5s linear infinite;
+}
+.liquidised::after {
+  border-radius: 40%;
+  background: rgba(20, 20, 20, 0.5);
+  animation: liquidised 10s linear infinite;
+  -webkit-animation: liquidised 10s linear infinite;
+  -moz-animation: liquidised 10s linear infinite;
+  -ms-animation: liquidised 10s linear infinite;
+  -o-animation: liquidised 10s linear infinite;
+}
+/* animation for liquidised */
+@keyframes liquidised {
+  0% {
+    transform: translate(-50%, -75%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -75%) rotate(360deg);
+  }
+}
+/* =====================end of liquid button animation */
+
+/* video text animation */
+.vid-section {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    overflow: hidden;
+}
+.vid-section video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.vid-section h2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-transform: uppercase;
+    font-size: 12vw;
+    text-align: center;
+    font-weight: 800;
+    line-height: .8em;
+    color: white;
+    /* background-color: rgb(0, 0, 0); */
+    background-color: rgb(12, 1, 51);
+    mix-blend-mode: multiply;
+    z-index: 1000;
+}
+.vid-section span {
+    font-size: .4em;
+}
+/* advert section */
+.advert {
+  transition: all .3s ease;
+}
+.advert:hover,
+.advert:focus {
+  background-color: var(--lightBlue);
+  color: white;
+  outline: none;
+  border: none;
+}
+.ad-icon {
+  color: var(--lightBlue);
+}
+.advert:hover .ad-icon,
+.advert:focus .ad-icon {
+  color: white;
+}
+/* end of advert section */
+
+/* ===================== contact us page styles================== */
+.contact-us-text {
+  color: var(--lightBlue);
+}
+#sendMessageBtn {
+  width: 100px;
+}
+/* ===================== end of contact us page styles================== */
+/* =============================================== property display section ================================== */
+.property-desc-container {
+  min-height: 18.6rem;
+}
+.property-img-container {
+  width: 100%;
+  height: 12.5rem;
+  overflow: hidden;
+}
+.property-img {
+  width: 100%;
+  height: 14rem;
+  /* object-fit: cover; */
+  display: block;
+}
+.property-desc {
+  transition: .3s;
+  -webkit-transition: .3s;
+  -o-transition: .3s;
+  -moz-transition: .3s;
+}
+.property-desc:hover {
+  text-decoration: none;
+}
+.page-arrow {
+  font-size: 1.5rem;
+  transition: .3s;
+  -webkit-transition: .3s;
+  -o-transition: .3s;
+  -moz-transition: .3s;
+}
+.disappear {
+  opacity: 0;
+  transition: .3s;
+  -webkit-transition: .3s;
+  -o-transition: .3s;
+  -moz-transition: .3s;
+}
+.page-arrow:hover,
+.page-arrow:focus {
+  text-decoration: none;
+}
+.page-arrow:hover .disappear,
+.page-arrow:focus-visible .disappear
+ {
+  opacity: 1;
+}
+.pagination {
+  margin-top: 3em;
+}
+
+/* =============================================== end of property display section ================================== */
+                /* ===================footer section================== */
+footer {
+    position: relative;
+    width: 100%;
+    background: var(--lightBlue);
+    min-height: 100px;
+    padding: 1.5em 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* z-index: -30; */
+}
+footer .social-icons,
+.footer-menu {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: .8em 0;
+    list-style: none;
+    flex-wrap: wrap;
+}
+footer .social-icons a {
+    font-size: 2rem;
+    color: var(--lightAsh);
+    margin: 0 .5em -1rem;
+    display: inline-block;
+    transition: .4s;
+    -webkit-transition: .4s;
+    -o-transition: .4s;
+    -moz-transition: .4s;
+    text-decoration: none;
+}
+footer .social-icons a:hover,
+footer .social-icons a:focus {
+    transform: translateY(-10px);
+    color: white;
+    outline: none;
+}
+footer .social-icons a h6 {
+  opacity: 0;
+  transition: .4s;
+    -webkit-transition: .4s;
+    -o-transition: .4s;
+    -moz-transition: .4s;
+}
+footer .social-icons a:hover h6,
+footer .social-icons a:focus h6 {
+  opacity: 1;
+}
+.footer-menu a {
+    font-size: 1.2rem;
+    color: white!important;
+    margin: 0 .7em;
+    display: inline-block;
+    text-decoration: none;
+    opacity: .75;
+    transition: .4s;
+    -webkit-transition: .4s;
+    -o-transition: .4s;
+    -moz-transition: .4s;
+}
+.footer-menu a:hover,
+.footer-menu a:focus {
+    opacity: 1;
+    text-decoration: none;
+}
+footer p {
+    color: white;
+    text-align: center;
+    margin-top: .9em;
+    margin-bottom: .5em;
+}
+footer .wave {
+    position: absolute;
+    top: -5em;
+    left: 0;
+    width: 100%;
+    height: 6em;
+    background: url(../../../media/animation/wave.png);
+    background-size: 62.5em 6em;
+}
+footer #wave1 {
+    z-index: 100;
+    opacity: 1;
+    bottom: 0;
+    animation: footerwave 4s linear infinite;
+    -webkit-animation: footerwave 4s linear infinite;
+    -o-animation: footerwave 4s linear infinite;
+    -moz-animation: footerwave 4s linear infinite;
+}
+footer #wave2 {
+    z-index: 99;
+    opacity: .5;
+    bottom: 10px;
+    animation: footerwave2 4s linear infinite;
+    -webkit-animation: footerwave2 4s linear infinite;
+    -o-animation: footerwave2 4s linear infinite;
+    -moz-animation: footerwave2 4s linear infinite;
+}
+footer #wave3 {
+    z-index: 100;
+    opacity: .2;
+    bottom: 15px;
+    animation: footerwave 3s linear infinite;
+    -webkit-animation: footerwave 3s linear infinite;
+    -o-animation: footerwave 3s linear infinite;
+    -moz-animation: footerwave 3s linear infinite;
+}
+footer #wave4 {
+    z-index: 99;
+    opacity: .7;
+    bottom: 20px;
+    animation: footerwave2 3s linear infinite;
+    -webkit-animation: footerwave2 3s linear infinite;
+    -o-animation: footerwave2 3s linear infinite;
+    -moz-animation: footerwave2 3s linear infinite;
+}
+/* animation for footerwave */
+@keyframes footerwave {
+    0% {
+        background-position-x: 62em;    
+    }
+    100% {
+        background-position-x: 0em;    
+    }
+}
+/* animation for footerwave2 */
+@keyframes footerwave2 {
+    0% {
+        background-position-x: 0;    
+    }
+    100% {
+        background-position-x: 62em;    
+    }
+}
+                /* ===================end of footer section================== */
+                /* ===================media queries================== */
+@media screen and (max-width: 500px) {
+  .header-info {
+    font-size: 1.5rem!important;
+  }
+}
+@media screen and (min-width: 750px) {
+  .hot-img {
+    width: 70%!important;
+  }
+}
+                /* ===================end of media queries================== */
+

@@ -1,0 +1,406 @@
+{% load static %} {% load show %} {% load tag %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Akomodation is a department in the Swonet company where you can buy or sell or rent houses, apartments and offices with no agent. Work with us in style and smile."
+    />
+    <title>{% block title %}{% endblock %}</title>
+    <link
+      rel="shortcut icon"
+      href="{% static 'img/favicon.ico' %}"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/style.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/bootstrap.min.css' %}"
+    />
+    <script src="{% static 'js/all.js' %}"></script>
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+  </head>
+  <body>
+    <!-- navigation bar -->
+    <nav class="nav navbar-light bg-white navbar-expand-md fixed-top">
+      <a href="{% url 'home' %}" class="navbar-brand font-weight-bold ml-3">
+        <img src="{% static 'img/logo.png' %}" class="logo" alt="logo" />
+      </a>
+      <button
+        class="navbar-toggler ml-auto mr-2"
+        type="button"
+        data-toggle="collapse"
+        data-target="#dashboardLinks"
+      >
+        <div class="fas fa-bars"></div>
+      </button>
+      <div class="collapse navbar-collapse" id="dashboardLinks">
+        <ul class="navbar-nav ml-3 font-weight-bold mx-md-auto">
+          <li class="nav-item mr-5">
+            <a href="{% url 'home' %}" class="nav-link text-primary">Home</a>
+          </li>
+{% if request.path == '/account/dashboard/' %}
+{% else %}
+          <li class="nav-item mr-5">
+            <a href="{% url 'dashboard' %}" class="nav-link text-primary"
+              >Dashboard</a
+            >
+          </li>
+{% endif %}
+          <li class="nav-item dropdown">
+            <button
+              class="
+                registration
+                btn
+                rounded-pill
+                dropdown-toggle
+                py-1
+                bg-primary
+                mt-1
+                mr-5
+              "
+              data-toggle="dropdown"
+              aria-expanded="false"
+              aria-haspopup="true"
+            >
+              {{request.user.username}}
+            </button>
+            <div class="dropdown-menu" aria-describedby="dashboard">
+              <a href="{% url 'create' %}" class="dropdown-item">Upload</a>
+              <button
+                class="dropdown-item py-2"
+                data-toggle="modal"
+                data-target="#messageus"
+              >
+                Message us
+              </button>
+              <div class="dropdown-divider"></div>
+              <a href="#logout" class="dropdown-item" data-toggle="modal"
+                >Logout</a
+              >
+            </div>
+          </li>
+          <!-- settings -->
+          <li class="nav-item dropdown">
+            <button
+              class="
+                dropdown-toggle
+                bg-primary
+                text-white
+                rounded-pill
+                px-2
+                registration
+                btn
+                py-1
+                mt-1
+              "
+              type="button"
+              data-toggle="dropdown"
+              aria-expanded="false"
+              aria-haspopup="true"
+              aria-label="settings"
+              style="width: 60px"
+            >
+              <i class="fas fa-tools"></i>
+            </button>
+            <div class="dropdown-menu" aria-describedby="settings">
+              <a href="{% url 'password_change' %}" class="dropdown-item"
+                >Change password</a
+              >
+              <a
+                href="{% url 'update_user' request.user.pk %}"
+                class="dropdown-item"
+                >Change user info</a
+              >
+              <div class="dropdown-divider"></div>
+              <a
+                href="#deleteaccount"
+                data-toggle="modal"
+                id="deleteaccountbtn"
+                data-catid="{{request.user.pk}}"
+                class="dropdown-item"
+                >Delete account</a
+              >
+            </div>
+          </li>
+          <!-- end of settings -->
+        </ul>
+        <!-- this time, the search bar is in the dropdown menu on mobile devices -->
+        <form
+          action="{% url 'read' %}"
+          method="GET"
+          class="col-md-4 m-1 mt-2 ml-md-5"
+        >
+          <div class="input-group">
+            <input
+              type="search"
+              placeholder="Search your own items"
+              name="search"
+              class="form-control"
+              required
+            /><br />
+            <input
+              type="submit"
+              value="Search"
+              class="btn btn-outline-primary search-btn"
+            />
+          </div>
+        </form>
+      </div>
+    </nav>
+    <!-- end of navigation bar -->
+    <br />
+    <br />
+    <br />
+
+    <!-- modal popup for the log out button -->
+    <div
+      class="modal"
+      tabindex="-1"
+      role="dialog"
+      id="logout"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document" id="modal-dialog">
+        <div class="modal-content" id="modal-content">
+          <div class="modal-body">
+            <p>Are you sure you want to log out?</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <a href="{% url 'logout' %}" type="button" class="btn btn-primary"
+              >Log out</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of  modal popup for the log out button -->
+    <!-- Modal for message us-->
+    <div
+      class="modal fade"
+      id="messageus"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="messageUsNow"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="messageUsNow">Send us a message.</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="{% url 'message' %}" method="POST">
+{% csrf_token %}
+              <textarea
+                id="Message" name="message" 
+                class="form-control"
+                cols="30"
+                rows="10"
+                maxlength="400"
+                placeholder="Type your message here (not more than 400 characters)"
+                
+                required
+              ></textarea>
+              <button
+                type="submit"
+                id="sendMessage"
+                class="btn btn-primary d-block my-3 mx-auto"
+              >
+                Send
+              </button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of Modal for message us-->
+    <!-- Modal for delete account-->
+    <div
+      class="modal fade"
+      id="deleteaccount"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="deleteaccountbtn"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="messageUsNow">
+              Are you sure you want to delete your account?
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p class="lead">
+              If you aren't sure, you can cancel the operation.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <a
+              href="{% url 'delete_user' request.user.pk %}"
+              type="button"
+              class="btn btn-primary"
+              >Delete</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of Modal for account-->
+
+     <!-- modal popup for the delete button -->
+     <div class="modal" tabindex="-1" role="dialog" id="deleteBtn" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this item?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <a href="#" id="delete" type="button" class="btn btn-primary">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of  modal popup for the delete button -->
+
+    {% block content %} {% endblock %} {% block search %} {% endblock %}
+    <footer>
+      <ul class="footer-menu">
+        <li>
+          <a href="{% url 'home' %}">About</a>
+        </li>
+        <li>
+          <a href="{% url 'services' %}">Services</a>
+        </li>
+        <li>
+          <a href="{% url 'terms' %}">Terms and conditions</a>
+        </li>
+        <li>
+          <a href="{% url 'home' %}">Home</a>
+        </li>
+      </ul>
+      <p>
+        &copy; <span id="date"></span> powered by SWONET
+        <img
+          src="{% static 'img/swonet_logo.png' %}"
+          alt="swonet logo"
+          class="swonet-logo"
+          tabindex="0"
+        />| All Rights Reserved
+      </p>
+    </footer>
+    <script>
+      function deleteProperty (prodId) {
+        const propertTobeDeleted = document.querySelector(`div[data-prodId="${prodId}"]`);
+
+        const modalDeleteBtn = document.querySelector("#delete");
+        modalDeleteBtn.setAttribute('data-prodId', prodId);
+
+        $('#deleteBtn').modal('show')
+      }
+
+      $("#delete").click((e) => {
+        var id = $("#delete").attr("data-prodId");
+
+        $.ajax({
+          type: "GET",
+          url: "{% url 'delete' %}",
+          data: { pk: id },
+          success: (data) => {
+            // $("#deleteBtn").hide()
+            $("#delete").text("delete");
+            // $("#delete").prop("disabled", true)
+            // $("#delete").attr("data-dismiss", "modal")
+
+            // removing deleted product from page after ajax deletes it
+            const deletedProduct = document.querySelector(
+              `div[data-prodId="${id}"]`
+            );
+            deletedProduct.remove();
+
+            // closing delete modal for deleted product
+            $("#deleteBtn").modal("hide");
+            // console.log(id);
+          },
+          error: (error) => {
+            $("#delete").text("deleted");
+          },
+        });
+      });
+      setTimeout(() => {
+        $("#propertyAlert").fadeOut();
+      }, 4000);
+
+      // send us a message in dashboard
+
+      $("#sendMessage").click(function (e) {
+        var msg = $("#Message").val();
+        var name = $("#Message").attr("data-catid");
+
+        $.ajax({
+          type: "GET",
+          url: "{% url 'message' %}",
+          data: { name: "name", message: "msg" },
+          success: () => {
+            console.log("your message sent");
+          },
+        });
+      });
+    </script>
+
+    <!-- js files -->
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <!-- <script src="{% static 'js/delete.js' %}"></script> -->
+  </body>
+</html>

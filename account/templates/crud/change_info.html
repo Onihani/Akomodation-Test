@@ -1,0 +1,75 @@
+{% extends 'dashboard_base.html' %}
+{% load tag %}
+{% block search %}
+<div class="container mb-3 mh-60">
+    <h4 class="text-center">You searched for:{{p}}</h4>
+    <div class="row">
+    
+        {% for item in page_obj %}
+        <div class="col-sm-6 col-md-4 col-lg-3 text-center mt-3">
+            <div class="item-show border border-primary p-2 rounded btn" tabindex="0">
+                <div class="property-img-container mb-1">
+                    <img src="{{item.image.url}}" class="property-img" alt="property image"/>
+                </div>            
+                <h4>{{item.title}}</h4>
+                <span class="lead">GHC {{item.prize}}</span>
+                <p style="margin: 0; padding: 0;">date {{item.date}}</p>
+                <h6 style="white-space: nowrap;">
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{item.location}}
+                </h6>
+                <div class="w-100 d-flex justify-content-between">
+                    <a href="{% url 'update' item.pk %}" class="btn btn-outline-primary" style="padding: 0 1rem;">Edit</a>
+                    <a href="#deleteBtn" type="button" class="btn btn-outline-primary" style="padding: 0 1rem;" data-toggle="modal">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <h4>you have no item named {{p}}</h4>
+        {% endfor %}
+    
+    </div>
+    <!-- modal popup for the delete button -->
+    <div class="modal" tabindex="-1" role="dialog" id="deleteBtn" aria-hidden="true">
+        <div class="modal-dialog" role="document" id="modal-dialog">
+            <div class="modal-content" id="modal-content">
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this item?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancel">Cancel</button>
+                    <button data-catid="{{item.pk}}" id="delete" type="button" class="btn btn-primary">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of  modal popup for the delete button -->
+     <!-- pagination -->
+     <div class="container flex-parent-center mb-5">
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                <a href="?{% param_replace page=page_obj.previous_page_number %}" class="page-arrow btn text-primary" aria-label="Previous">
+                    <i class="fas fa-angle-left disappear"></i>
+                    <i class="fas fa-angle-left"></i>
+                    <i class="fas fa-angle-left"></i>
+                </a> &nbsp;
+                {% endif %}
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                &nbsp;<a href="?{% param_replace page=page_obj.next_page_number %}" class="page-arrow btn text-primary" aria-label="Next">
+                    <i class="fas fa-angle-right"></i>
+                    <i class="fas fa-angle-right"></i>
+                    <i class="fas fa-angle-right disappear"></i>
+                    </a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+<!-- end of pagination -->
+</div>
+    
+
+{% endblock %}

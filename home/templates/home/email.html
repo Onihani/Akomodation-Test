@@ -1,0 +1,14 @@
+{% extends 'base_detail.html' %}
+{% block content %}
+{% for message in messages %}
+<p>{{message}}
+{% endfor %}
+<form action="{% url 'send_mail' pk %}" method="POST">
+{% csrf_token %}
+<input type="text" name="username" placeholder="name" required/><br/>
+<input type="email" name="email" placeholder="email" required /><br/>
+<input type="text" name="subject" placeholder="subject" required /><br/>
+<textarea name="message" rows="5" placeholder="Message" cols="5" required></textarea><br/>
+<input type="submit" value="Send" />
+</form>
+{% endblock %}

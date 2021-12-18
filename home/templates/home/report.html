@@ -1,0 +1,9 @@
+{% extends 'base_detail.html' %}
+{% block content %}
+<h1>report {{name}} to us</h1>
+<form action="{% url 'report' pk %}" method="POST">
+{% csrf_token %}
+{{form.as_p}}
+<input type="submit" value="Report" />
+</form>
+{% endblock %}

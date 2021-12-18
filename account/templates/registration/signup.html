@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}
+Sign Up
+{% endblock %}
+{% block content %}
+<style>
+    #register-form {
+        background-image: linear-gradient(220deg, rgba(0,0,255, .5), rgba(53, 134, 255, .5));
+        color: white;
+        border-radius: 10px;
+    }
+</style>
+<main class="container mh-100 d-flex align-items-center flex-column mt-5">
+    <h4 class="lead">Please fill the form to register</h4>
+    <form action="{% url 'signup' %}" method="POST" id="register-form" class="shadow mb-3 p-2 p-md-4 mb-4 d-flex flex-column text-center align-items-center w-100 w-md-50">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="Sign Up" class="mt-3 btn btn-primary w-100">
+    </form>
+</main>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'dashboard_base.html' %}
+{% block title %}
+Upload new item
+{% endblock %}
+{% block content %}
+
+<main class="container mh-80">
+    
+    <style>
+        #create_form {
+            background-image: linear-gradient(220deg, rgba(0,0,255, .5), rgba(53, 134, 255, .5));
+            color: white;
+            border-radius: 10px;
+        }
+    </style>
+
+    <h4 class="lead">
+        <div class="spinner-grow bg-primary" role="status" id="listOfServices">
+            <span class="sr-only">Loading...</span>
+        </div>Please fill in the form to upload a property</h4>
+    <form action="{% url 'create' %}" method="POST" enctype="multipart/form-data" id="create_form" class="shadow mb-3 p-2 d-flex flex-column text-center align-items-center">
+    {% csrf_token %}
+        {{form}}
+        <!-- liquid button animation -->
+        <div class="liquid-btn-parent mt-2 ml-4 btn">
+            <button class="liquid-btn rounded-pill py-1" type="submit" style="width: 110px; border: none;">
+                <span>UPLOAD</span>
+                <div class="liquidised"></div>
+            </button>
+        </div>
+        <!-- end of liquid button animation -->
+    </form>
+
+    <script>
+        $("#id_title").attr("placeholder", "max 100 characters")
+        $("#id_description").attr("placeholder", "max 400 characters").attr("maxLength", 400)
+        $("#id_price").attr("placeholder", "Price")
+    </script>
+</main>
+
+{% endblock %}

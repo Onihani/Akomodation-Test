@@ -1,0 +1,142 @@
+{% extends 'base.html' %} {% load tag %} {% load social_share %} {% block title %} {{item.title}} {% endblock %}
+{% block content %}
+
+<main class="container mh-100 p-5 d-flex justify-content-start align-items-center flex-column text-center">
+
+  <div class="property-img-container mb-1" style="height: 20rem; z-index: -3;">
+    <img src="{{item.image.url}}" class="img-fluid hot-img" style="height: 100%; width: 100%;"/>
+  </div>
+  <h3 class="text-muted mb-2">{{item.title}}</h3>
+  <p class="text-muted">{{item.description}}</p>
+  <p>GH₵ {{item.price}}</p>
+  <p class="font-weight-bold">Plan: {{item.plan.name}}</p>
+  <p style="margin: 0; padding: 0;">Uploaded {{item.date|ago}}</p>
+  <h5> <i class="fas fa-map-marker-alt"></i>
+    {{item.location}}</h5>
+  <p class="font-weight-bold">{{item.region}}</p>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#userDetails" aria-expanded="false" aria-controls="userDetails">
+      Owner details
+  </button>
+  <div class="collapse" id="userDetails">
+    <div class="card card-body">
+      <p class="text-muted">Owner email:</p>
+      <p>{{item.owner.email}}</p>
+      <p class="text-muted">name:</p>
+      <p>{{item.owner.username}}</p>
+      <p class="text-muted"><i class="fas fa-phone-alt"></i>telephone number:</p> 
+      <a href="tel:{{item.owner.telephone}}">{{item.owner.telephone}}</a>
+    </div>
+  </div>
+  <br />
+  <a href="#sendmail" data-toggle="modal" id="sendemail" class="btn btn-outline-primary">Contact Owner by email</a>
+  <br />
+
+  <style>
+    .share-link li {
+      margin-left: 1rem;
+      margin-right: 1rem;
+      list-style: none;
+    }
+    .share-link li .link-share {
+      color: var(--c);
+      font-size: 1rem;
+    }
+  </style>
+
+<p>Share as link to:</p>
+<ul class="d-flex share-link">
+  <li>
+    <i class="fab fa-facebook link-share" style="--c: rgb(69, 69, 218);"></i>{% post_to_facebook item.get_absolute_url "facebook" %}
+  </li>
+  <li>
+    <i class="fab fa-twitter link-share" style="--c: rgb(71, 71, 214);"></i>
+    {% post_to_twitter "tweet" item.get_absolute_url 'twitter' %}
+  </li>
+  <li>
+    <i class="fab fa-telegram link-share" style="--c: rgb(104, 104, 219);"></i>
+    {% post_to_telegram 'share to telegram' item.get_absolute_url 'Telegram' %}
+  </li>
+  <li>
+    <i class="fab fa-whatsapp link-share" style="--c: rgb(38, 124, 38);"></i>
+    {% post_to_whatsapp item.get_absolute_url 'whatsapp' %}
+  </li>
+  <li>
+    <i class="fab fa-linkedin link-share" style="--c: rgb(64, 64, 92);"></i>
+    {% post_to_linkedin item.get_absolute_url 'linked in' %}
+  </li>
+  <li>
+    <i class="fab fa-reddit link-share" style="--c: rgb(172, 48, 48);"></i>
+    {% post_to_reddit "reddit" item.get_absolute_url 'reddit' %}
+  </li>
+</ul>
+
+  <small>Feel cheated?</small>
+  <!-- liquid button animation -->
+  <div class="liquid-btn-parent mt-4">
+    <a href="#report" id="reportbtn" data-toggle="modal" class="liquid-btn rounded-pill">
+        <span>REPORT</span>
+        <div class="liquidised"></div>
+    </a>
+</div>
+<!-- end of liquid button animation -->
+
+<!-- Modal for Contact Owner by email-->
+<div class="modal fade" id="sendmail" tabindex="-1" role="dialog" aria-labelledby="sendemail" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="messageUsNow">Send the seller of this property a mail.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'email' item.pk %}" id="sendOwnerMail" method="POST">
+{% csrf_token %}
+          <input type="text" name="name" id="sendName" placeholder="input your name" class="form-control mb-2" required>
+          <input type="email" id="sendEmail" name="email" placeholder="enter your email" class="form-control mb-2" required>
+          <input type="tel" id="sendTel" name="telephone" placeholder="enter your tel number" class="form-control mb-2" required>
+          <textarea id="sendEmail" name="message" class="form-control mb-2" cols="30" rows="10" maxlength="400" placeholder="Type your message here (not more than 400 characters)" required></textarea>
+          <button type="submit" id="sendMailBtn" class="btn btn-primary w-100">Send</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary mr-3" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end of Modal for Contact Owner by email-->
+<!-- Modal for report-->
+<div class="modal fade" id="report" tabindex="-1" role="dialog" aria-labelledby="reportbtn" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="messageUsNow">Report the seller of this property to us if you feel cheated.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'report' item.pk %}" id="reportOwnerForm" data-catid="{{item.pk}}" method="POST">
+{% csrf_token %}
+          <input type="text" name="name" id="name" placeholder="input your name" class="form-control mb-2" required>
+          <input type="email" id="email" name="email" placeholder="enter your email" class="form-control mb-2" required>
+          <input type="tel" id="telephone" name="telephone" placeholder="enter your tel number" class="form-control mb-2" required>
+          <textarea id="reportMessage" name="message" class="form-control mb-2" cols="30" rows="10" maxlength="400" placeholder="Describe the issue to us (not more than 400 characters)" required></textarea>
+          <button type="submit" id="sendReport" class="btn btn-primary w-100">Send</button>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary mr-3" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end of Modal for report-->
+
+
+</main>
+  
+  {% endblock %}

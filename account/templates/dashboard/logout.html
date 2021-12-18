@@ -1,0 +1,12 @@
+{% extends 'base.html' %}}
+{% block content %}
+<main class="container mh-100">
+    <!-- display message when logged out -->
+    <div class="alert alert-primary mt-5" role="alert">
+        <h4 class="alert-heading">You have successfully logged out!</h4>
+        <p>So sad to see you go. Be sure to login anytime and continue working with Akomodation, thank you. </p>
+        <hr>
+        <a href="{% url 'home' %}" class="w-100 btn btn-primary">Return to homepage</a>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load tag %}
+{% block title %}
+Search results
+{% endblock %}
+{% block content %}
+
+<main class="mh-100 mb-5">
+    <div class="container my-5">
+        <h2 class="text-muted text-center mt-1 mb-3">Choose between hundreds of available affordable lands, rooms or houses.</h2>
+        <div class="row">
+            
+            {% for property in page_obj %}
+            <div class="col-sm-6 col-md-4 col-lg-3 text-center">
+
+                <div class="property-desc-container shadow p-2 mb-3">
+                    <!-- the properties displayed with their descriptions -->
+                    <div class="property-img-container mb-1">
+                        <a href={{ property.get_absolute_url }} aria-label="{{property.title}}" tabindex="0">
+                            <img src="{{property.image.url}}" class="property-img"/>
+                        </a>
+                    </div>            
+                    <h4>
+                        <a href={{ property.get_absolute_url }} class="property-desc text-primary">{{property.title}}</a>
+                    </h4>
+                    <p style="margin: 0; padding: 0;">Uploaded {{property.date|ago}}</p>
+                    <p class="font-weight-bold">Plan: {{property.plan.name}}</p>
+                    <p class="font-weight-bold">{{property.region}}</p>
+                    <span class="lead">GH₵ {{property.price}}</span>
+                    <h5> <i class="fas fa-map-marker-alt"></i>
+                         {{property.location}}</h5>
+                </div>
+
+            </div>
+            {% empty %}
+            <p class="text-center">No search results</p>
+            {% endfor %}
+            
+        </div>
+    </div>
+    <!-- end of the properties-->
+    <!-- pagination -->
+        <div class="container flex-parent-center mb-5">
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                    <a href="?{% param_replace page=page_obj.previous_page_number %}" class="page-arrow btn text-primary" aria-label="Previous">
+                        <i class="fas fa-angle-left disappear"></i>
+                        <i class="fas fa-angle-left"></i>
+                        <i class="fas fa-angle-left"></i>
+                    </a> &nbsp;
+                    {% endif %}
+                    <span class="current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+                    {% if page_obj.has_next %}
+                    &nbsp;<a href="?{% param_replace page=page_obj.next_page_number %}" class="page-arrow btn text-primary" aria-label="Next">
+                        <i class="fas fa-angle-right"></i>
+                        <i class="fas fa-angle-right"></i>
+                        <i class="fas fa-angle-right disappear"></i>
+                        </a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    <!-- end of pagination -->
+    
+</main>
+<br>
+<br>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'dashboard_base.html' %}
+{% block title %}
+Item updated{% endblock %}
+{% block content %}
+<main class="mh-70">
+    <div class="container my-5">
+        <div class="alert alert-primary mt-5" role="alert">
+            <h4 class="alert-heading">The product has been updated!</h4>
+            <p></p>
+            <hr>
+            <a href="{% url 'dashboard' %}" class="w-100 btn btn-primary">Return to dashboard</a>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

@@ -1,0 +1,134 @@
+{% load static %} {% load tag %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+          content="Akomodation is a department in the Swonet company where you can buy or sell or rent houses, apartments and offices with no agent. Work with us in style and smile." />
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/all.js' %}"></script>
+  </head>
+  <body class="bg-light">
+
+    <!-- navigation bar -->
+    <nav class="nav navbar-light bg-white navbar-expand-md fixed-top" id="home">
+        <a href="{% url 'home' %}" class="navbar-brand font-weight-bold ml-3 logo-link">
+            <img src="{% static 'img/logo.png' %}" class="logo" alt="logo">
+        </a>
+        <button class="navbar-toggler ml-auto mr-2" type="button" aria-label="hamburger menu" data-toggle="collapse" data-target="#navlinks">
+            <div class="fas fa-bars"></div>
+        </button>
+        <div class="collapse navbar-collapse" id="navlinks">
+            <ul class="navbar-nav mx-md-auto ml-3 font-weight-bold">
+                <li class="nav-item mr-5">
+                    <a href="{% url 'home' %}" class="nav-link text-primary">Home</a>
+                </li>
+                <li class="nav-item mr-5">
+                    <a href="{% url 'contact' %}" class="nav-link text-primary">Contact</a>
+                </li>
+{% if request.path == '/' %}
+
+{% else %}
+{% endif %}
+                <li class="nav-item dropdown">
+                    <button class="registration btn rounded-pill dropdown-toggle py-1 bg-primary mt-1" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true" id="regions">Account</button>
+                    <div class="dropdown-menu" aria-describedby="dashboard">
+{% if request.user.is_authenticated %}
+                        <a href="{% url 'dashboard' %}" class="dropdown-item">Dashboard</a>
+{% else %}
+                        <a href="{% url 'signup' %}" class="dropdown-item">Register</a>
+                        <a href="{% url 'login_user' %}" class="dropdown-item">Log in</a>
+{% endif %}
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- the search bar is outside the hamburger menu when on small devices -->
+        <form action="{% url 'property' %}" class="col-md-4 m-1 mt-2" id="">
+            <div class="input-group">
+            <input type="search" name="search" placeholder="Search eg 'beautiful mansion' " class="form-control" id="search" aria-label="Search"
+            aria-describedby="Search" required/>
+            <br />
+            <input type="submit" value="Search" class="btn btn-outline-primary search-btn"/>
+            </div>
+        </form>
+    </nav>
+    <!-- end of nav -->
+    <br>
+    <br>
+    <br>
+
+    {% block content %} {% endblock %}
+    <!-- footer -->
+    <footer class="mt-5">
+        <div class="waves">
+            <div class="wave" id="wave1"></div>
+            <div class="wave" id="wave2"></div>
+            <div class="wave" id="wave3"></div>
+            <div class="wave" id="wave4"></div>
+        </div>
+        <div class="text-center text-white">Follow us on</div>
+        <ul class="social-icons">
+            <li>
+                <a href="#" aria-label="facebook" class="d-flex flex-column justify-content-center align-items-center">
+                    <i class="fab fa-facebook"></i>
+                    <h6 class="text-center">facebook</h6>
+                </a>
+            </li>
+            <li>
+                <a href="#" aria-label="instagram" class="d-flex flex-column justify-content-center align-items-center">
+                    <i class="fab fa-instagram"></i>
+                    <h6 class="text-center">instagram</h6>
+                </a>
+            </li>
+            <li>
+                <a href="#" aria-label="twitter" class="d-flex flex-column justify-content-center align-items-center">
+                    <i class="fab fa-twitter"></i>
+                    <h6 class="text-center">twitter</h6>
+                </a>
+            </li>
+            <li>
+                <a href="#" aria-label="youtube" class="d-flex flex-column justify-content-center align-items-center">
+                    <i class="fab fa-youtube"></i>
+                    <h6 class="text-center">youtube</h6>
+                </a>
+            </li>
+        </ul>
+        <ul class="footer-menu">
+            <li>
+                <a href="{% url 'about' %}">About</a>
+            </li>
+            <li>
+                <a href="{% url 'services' %}">Services</a>
+            </li>
+            <li>
+                <a href="{% url 'terms' %}">Terms and conditions</a>
+            </li>
+            <li>
+              <a href="{% url 'django.contrib.sitemaps.views.sitemap' %}">Sitemaps</a>
+            </li>
+
+            <li>
+                <a href="{% url 'home' %}">Home</a>
+            </li>
+        </ul>
+        <p>&copy; <span id="date"></span> powered by SWONET <img src="{% static 'img/swonet_logo.png' %}" alt="swonet logo" class="swonet-logo" tabindex="0">| All Rights Reserved</p>
+    </footer>
+    <!-- end of footer -->
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+<script>
+    // report owner
+</script>
+    
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/filter-regions.js' %}"></script>
+    <script src="{% static 'js/js.js' %}"></script>
+  </body>
+</html>

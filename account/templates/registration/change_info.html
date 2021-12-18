@@ -1,0 +1,20 @@
+{% extends 'dashboard_base.html' %}
+{% block title %}
+Update your info{% endblock %}
+{% block content %}
+<main class="mh-90">
+    <div class="container py-5">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-8">
+                <form action="{% url 'update_user' request.user.pk %}" method="post">
+                {% csrf_token %}
+                {{form}}
+                <input type="submit"  class="btn btn-primary w-100" value="Update">
+                </form>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+{% endblock %}

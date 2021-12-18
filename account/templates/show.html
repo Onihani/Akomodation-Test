@@ -1,0 +1,32 @@
+{% load tag %}
+<main>
+    <!-- this is where the dashboard displays the recent items uploaded -->
+    <div class="row">
+
+        {% for item in obj %}
+        <div class="col-sm-6 col-md-4 col-lg-3 text-center mt-3" data-prodId="{{item.pk}}">
+            <div class="item-show shadow property-desc-container p-2 rounded btn" tabindex="0" style="transition: .4s; -webkit-transition: .4s;-o-transition: .4s;-moz-transition: .4s;">
+                <div class="property-img-container mb-1">
+                    <img src="{{item.image.url}}" class="property-img" alt="property image"/>
+                </div>            
+                <h4>{{item.title}}</h4>
+                <span class="lead">GH₵ {{item.price}}</span>
+                <p class="font-weight-bold">Plan: {{item.plan.name}}</p>
+                <p style="margin: 0; padding: 0;">Uploaded {{item.date|ago}}</p>
+                <h6 style="white-space: nowrap;">
+                    <i class="fas fa-map-marker-alt"></i>
+                    {{item.location}}
+                </h6>
+                <p class="font-weight-bold">{{item.region}}</p>
+                <div class="w-100 d-flex justify-content-between">
+                    <a href="{% url 'update' item.pk %}" class="btn btn-outline-primary" style="padding: 0 1rem;">Edit</a>
+                    <a onclick="deleteProperty('{{item.pk}}')" class="btn btn-outline-primary delete-modal" style="padding: 0 1rem;" data-toggle="modal">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>You have no recent uploads</p>
+        {% endfor %}
+    </div>
+    <hr>
+</main>

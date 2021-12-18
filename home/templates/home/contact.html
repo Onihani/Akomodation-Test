@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}
+Contact us
+{% endblock %}
+{% block content %}
+<main class="mh-100 m-0">
+    <!-- contact us form -->
+    <div class="container my-5">
+        <h2 class="display-4 text-center font-weight-bold contact-us-text">Contact us</h2>
+        <h4 class="text-center font-weight-bold text-muted mb-5">Send us a message.</h4>
+        <div class="row">
+
+            <div class="col-md-6">
+                <form action="{% url 'contact' %}" method="POST" id="form">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-6 controller">
+                            <input type="text" class="form-control" placeholder="Enter your name" name="username" id="username">
+                            <i class="fa fa-check-circle i"></i>
+                            <i class="fa fa-exclamation-circle i"></i>
+                            <small>error message</small>
+                        </div>
+                        <div class="form-group col-md-6 controller">
+                            <input type="tel" class="form-control" placeholder="Enter your number" name="tel" id="number">
+                            <i class="fa fa-check-circle i"></i>
+                            <i class="fa fa-exclamation-circle i"></i>
+                            <small>error message</small>
+                        </div>
+                    </div>
+                    <div class="form-group controller">
+                        <input type="email" class="form-control" placeholder="Enter email @..." name="email" id="email">
+                        <i class="fa fa-check-circle i"></i>
+                        <i class="fa fa-exclamation-circle i"></i>
+                        <small>error message</small>
+                    </div>
+                    <div class="form-group controller">
+                        <textarea rows="7" class="form-control" maxlength="300" placeholder="Enter your message (not more than 300 characters)" name="msg" id="msg"></textarea>
+                        <small>error message</small>
+                    </div>
+                     <!-- liquid button animation -->
+                     <div class="liquid-btn-parent text-center">
+                        <button class="liquid-btn rounded-pill" id="sendMessageBtn" type="submit" style="border: none;">
+                            <span>Send</span>
+                            <div class="liquidised"></div>
+                        </button>
+                    </div>
+                    <!-- end of liquid button animation -->
+                </form>
+            </div>
+
+            <div class="col-md-6 mt-5">
+                <p>Swotech company located at <i class="fas fa-home"></i> Accra, Ghana.</p>
+                <p>PO Box 99 AR,  swonetco@gmail.com</p>
+                <p>Contact us on <br> <i class="fas fa-phone"></i> +233 244486509 or +233 548285798 or +233 323423433</p>
+            </div>
+
+        </div> 
+
+    </div>
+    <!-- end of contact us form -->
+</main>
+{% endblock %}
